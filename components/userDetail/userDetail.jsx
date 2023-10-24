@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import './userDetail.css';
 import fetchModel from "../../lib/fetchModelData";
-
+import User from "../../schema/user";
 /**
  * Define UserDetail, a React component of project #5
  */
@@ -14,7 +14,8 @@ class UserDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: undefined
+            user: undefined,
+            user_id: undefined
         };
     }
     componentDidMount() {

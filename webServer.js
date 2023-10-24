@@ -128,23 +128,33 @@ app.get('/test/:p1', function (request, response) {
  * URL /user/list - Return all the User object.
  */
 app.get('/user/list', function (request, response) {
-    response.status(200).send(models.userListModel());
-});
+    User.find({}, function (err, users) {
+        if (err) {
+            console.error('Doing /user/list error:', err);
+            response.status(500).send(JSON.stringify(err));
+            return;
+        }
+        response.status(200).send(users);
+    }
+    ).projection({ _id: 1, first_name: 1, last_name: 1 });
+}
+);
 
 /*
  * URL /user/:id - Return the information for User (id)
  */
 app.get('/user/:id', function (request, response) {
     var id = request.params.id;
-    var user = models.userModel(id);
-    if (user === null) {
-        console.log('User with _id:' + id + ' not found.');
-        response.status(400).send('Not found');
-        return;
-    }
-    response.status(200).send(user);
+    User.find({ _id: id }, function (err, users) {
+        if (err) {
+            console.error('Doing /user/:id error:', err);
+            response.status(400).send(JSON.stringify(err));
+            return;
+        }
+        response.status(200).send(JSON.parse(JSON.stringify(users[0])));
+        
+    }).projection({ _id: 1, first_name: 1, last_name: 1, location: 1, description: 1, occupation: 1})
 });
-
 /*
  * URL /photosOfUser/:id - Return the Photos for User (id)
  */
@@ -165,5 +175,3 @@ var server = app.listen(3000, function () {
     console.log('Listening at http://localhost:' + port + ' exporting the directory ' + __dirname);
 });
 
-
-console.log("pleae show upasdfasdfasdfasdfsadf");

@@ -38,20 +38,18 @@ class PhotoShare extends React.Component {
         <div className="main-topbar-buffer"/>
         <Grid item sm={3}>
           <Paper className="main-grid-item">
+            
             <UserList/>
           </Paper>
         </Grid>
         <Grid item sm={9}>
           <Paper className="main-grid-item">
             <Switch>
-              <Route path="/users/:userId"
-                     render={ props => <UserDetail {...props} changeMainContent={this.changeMainContent}/> }
-              />
-              <Route path="/photos/:userId"
-                     render ={ props => <UserPhotos {...props} changeMainContent={this.changeMainContent}/> }
-              />
-              
+              <Route path="/user/list" render={props => <UserList {...props} changeMainContent={this.changeMainContent} />} />
+              <Route path="/users/:userId" render={props => <UserDetail {...props} changeMainContent={this.changeMainContent}/> } />
+              <Route path="/photos/:userId" render ={props => <UserPhotos {...props} changeMainContent={this.changeMainContent}/> } />
             </Switch>
+            
           </Paper>
         </Grid>
       </Grid>
