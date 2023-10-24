@@ -43,7 +43,7 @@ var Photo = require('./schema/photo.js');
 var SchemaInfo = require('./schema/schemaInfo.js');
 
 // XXX - Your submission should work without this line. Comment out or delete this line for tests and before submission!
-var models = require('./modelData/photoApp.js').models;
+// var models = require('./modelData/photoApp.js').models;
 mongoose.set('strictQuery', false);
 mongoose.connect('mongodb://localhost/project6', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -166,3 +166,4 @@ var server = app.listen(3000, function () {
 });
 
 
+console.log("pleae show upasdfasdfasdfasdfsadf");
