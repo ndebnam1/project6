@@ -5,8 +5,8 @@ import {
     TextField
 } from '@mui/material';
 import './userDetail.css';
-import fetchModel from "../../lib/fetchModelData";
-import User from "../../schema/user";
+import axios from 'axios';
+
 /**
  * Define UserDetail, a React component of project #5
  */
@@ -14,8 +14,7 @@ class UserDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: undefined,
-            user_id: undefined
+            user: undefined
         };
     }
     componentDidMount() {
@@ -32,7 +31,7 @@ class UserDetail extends React.Component {
     }
 
     handleUserChange(user_id){
-        fetchModel("/user/" + user_id)
+        axios.get("/user/" + user_id)
             .then((response) =>
             {
                 const new_user = response.data;

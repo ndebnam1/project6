@@ -6,8 +6,7 @@ import {
 }
 from '@mui/material';
 import './userList.css';
-import fetchModel from "../../lib/fetchModelData";
-import User from "../../schema/user";
+import axios from 'axios';
 
 /**
  * Define UserList, a React component of project #5
@@ -16,9 +15,8 @@ class UserList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: User,
-            user_id: undefined  
-                
+                users: undefined,
+                user_id: undefined
             };
     }
 
@@ -43,7 +41,7 @@ class UserList extends React.Component {
     }
 
     handleUserListChange(){
-        fetchModel("/user/list")
+        axios.get("/user/list")
             .then((response) =>
             {
                 this.setState({
@@ -56,7 +54,16 @@ class UserList extends React.Component {
     return this.state.users ?(
         <div>
         <List component="nav">
-            
+            {
+                this.state.users.map(user => (
+                <ListItemButton selected={this.state.user_id === user._id}
+                                key={user._id}
+                                divider={true}
+                                component="a" href={"#/users/" + user._id}>
+                    <ListItemText primary={user.first_name + " " + user.last_name} />
+                </ListItemButton>
+            ))
+            }
         </List>
         </div>
     ) : (
