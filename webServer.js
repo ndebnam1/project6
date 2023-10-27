@@ -158,7 +158,7 @@ app.get('/user/:id', function (request, response) {
       // Query returned an error. We pass it back to the browser with an
       // Internal Service Error (500) error code.
       console.error("Error in /user/:id", err);
-      response.status(500).send(JSON.stringify(err));
+      response.status(400).send(JSON.stringify(err));
       return;
     }
     if (user.length === 0) {
@@ -227,13 +227,13 @@ app.get('/photosOfUser/:id', function (request, response) {
       // Query returned an error. We pass it back to the browser with an
       // Internal Service Error (500) error code.
       console.error("Error in /photosOfUser/:id", err);
-      response.status(500).send(JSON.stringify(err));
+      response.status(400).send(JSON.stringify(err));
       return;
     }
     if (photos.length === 0) {
       // Query didn't return an error but didn't find the SchemaInfo object -
       // This is also an internal error return.
-      response.status(400).send();
+      response.status(400).send(JSON.stringify(err));
       return;
     }
     // We got the object - return it in JSON format.
